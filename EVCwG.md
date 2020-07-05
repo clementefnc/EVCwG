@@ -18,6 +18,8 @@ Spero che chiunque utilizzerà questo testo possa trovarlo utile ed esaustivo.
 
 Per qualsiasi segnalazione, suggerimento, lamentela mandatemi liberamente una mail all'indirizzo [clementefnc@gmail.com](mailto:clementefnc@gmail.com). Su OpenPGP potete trovare [la mia chiave GPG](https://keys.openpgp.org/search?q=clementefnc%40gmail.com).
 
+
+
 ## Riguardo i sistemi di controllo versione (VCS)
 
 Un sistem di controllo versione è un sistema che si occupa di memorizzare le modifiche effettuate ad un file o un insieme di file nel tempo di modo che si possa analizzare questi stati intermedi in un momento futuro ed eventualmente capire dove le cose possono essere andate storte.
@@ -95,4 +97,59 @@ Generalmente il workflow con Git è il seguente:
 Una versione particolare di un file che è nella git directory, è **committed**. Se è stata modificata ed aggiunta alla staging area allora è **staged**. Se sono stati fatte delle modifiche ma non è stato aggiunto alla staging area allora è **modified**.
 
 ### La riga di comando
+
+Ci sono vari modi per usare Git. È stato però pensato per essere utilizzato da riga di comando, nonostante esistano ormai svariati tool grafici che ne rendono l'uso più semplice pre i meno avvezzi al terminale.
+
+D'ora in avanti si da per scontato che ci si sappia quantomeno destreggiare con i comandi basi di una shell bash.
+
+### Intallare Git
+
+Prima di iniziare ad utilizzarlo, è necessario installare Git. In alcuni casi è già installato. Nel caso in cui non fosse così fate riferimento al vostro package manager se siete su Linux; se siete su MacOS lo trovate nei developer tool che, se non avete già installato, potete installare semplicemente digitando `git` e premendo invio di modo che vi verrà chiesto di installare i developer tools; per installarlo su windows far riferimento alle istruzioni sul [sito ufficiale](http://git-scm.com/download/win); infine è possibile anche compilarselo autonomamente.
+
+### Primo avvio e setup
+
+Ora che abbiamo installato Git sul nostro sistema è necessario fare un paio di cose per configurare il nostro ambiente. Questa procedura si deve fare soltanto una volta su ogni pc su cui installiamo git.
+
+Git ha un tool chiamato `git config` che permette di visualizzare ed impostare le variabili che controllano ogni aspetto relativo alle modalità in cui git opera. Queste variabili possono essere memorizzate in tre punti diversi ed hanno un significato diverso a seconda di dove sono posizionate.
+
+- `/etc/gitconfig`: contiene i parametri che si applicano ad ogni utente del sistema. Si manipola con l'opzione `--system` passata a `git config`.
+- `~/.gitconfig` o `~/.config/git/config`: questo file contiene i valori specifici di un singolo utente. Si manipola con l'opzione `--global` passata a `git config`.
+- `config`: questo file si trova nella Git directory ed è specifico della repository corrente
+
+Ogni livello sovrascrive ciò che è nel livello precedente, per cui la configurazione nella Git directory, se presente, è la principale.
+
+### La nostra identità
+
+La prima cosa da fare è configurare il nostro nome ed indirizzo email. Questo è importante perchè ogni commit conterrà questa informazione. Ora diamo i seguenti comandi sostituendo nome e mail con le nostre informazioni personali
+
+```bash
+$ git config --global user.name "clementefnc"
+$ git config --global user.email clementefnc@gmail.com
+```
+
+Fatto la prima volta non sarà più necessario rifarlo, a meno che non si vogliano modificare o ci si trovi su un nuovo computer.
+
+Fatto ciò, volendo si può impostare anche l'editor di default che ci verrà mostrato da git ogni volta che sarà necessario inserire un messaggio. Se non viene configurato, usa l'editor di default del sistema. Nel caso in cui ne volessimo uno differente come ad esempio Vim possiamo dare il seguente comando
+
+```bash
+$ git config --global core.editor vim
+```
+
+Per controllare lo stato attuale della configurazione basterà utilizzare il comando `git config --list` che produrrà un output simile al seguente
+
+```bash
+$ git config --list
+user.name=clementefnc
+user.email=clementefnc@gmail.com
+core.editor=vim
+```
+
+Volendo si può anche vedere uno specifico valore
+
+```bash
+$ git config user.name
+clementefnc
+```
+
+### Ottenere aiuto
 
